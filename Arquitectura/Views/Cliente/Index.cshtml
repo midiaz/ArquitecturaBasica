@@ -1,0 +1,84 @@
+﻿@model IEnumerable<Arquitectura.Negocio.Entidades.Cliente>
+
+@{
+    ViewBag.Title = "Clientes";
+}
+
+<header class="content__title">
+    <h1>Listado de Clientes</h1>
+</header>
+
+<p>
+    <div class="form-group">
+        @Html.ActionLink("Crear Nuevo", "Create", "Cliente", null, new { @class = "btn btn-light" })
+    </div>
+</p>
+
+@if (ViewBag.SaveResult == true)
+{
+    <div class="alert alert-success">
+        <strong>@ViewBag.Message</strong>
+    </div>
+}
+@if (ViewBag.SaveResult == false)
+{
+    <div class="alert alert-danger">
+        <strong>@ViewBag.Message</strong>
+    </div>
+}
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="data-table" class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Nombre)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Apellido)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Documento)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CorreoElectronico)
+                        </th>
+                        <th></th>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Apellido)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Documento)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CorreoElectronico)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                                @Html.ActionLink("Detalle", "Details", new { id = item.Id }) |
+                                @if (item.FechaBaja == null)
+                                {
+                                    @Html.ActionLink("Desactivar", "Delete", new { id = item.Id })
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Activar", "Activate", new { id = item.Id })
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
